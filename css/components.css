@@ -1,0 +1,39 @@
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+.grid { display:grid; gap:12px; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+.stat-card { display:flex; flex-direction:column; gap:4px; }
+.stat-card .label { font-size:12px; color:var(--text-muted); display:flex; align-items:center; gap:6px; }
+.stat-card .value { font-size:24px; font-weight:700; }
+.stat-card .unit { font-size:13px; color:var(--text-muted); font-weight:400; }
+.badge {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:3px 10px; border-radius:99px; font-size:12px; font-weight:600;
+}
+.badge.success { background:rgba(22,163,74,.12); color:var(--success); }
+.badge.danger { background:rgba(220,38,38,.12); color:var(--danger); }
+.badge.warning { background:rgba(217,119,6,.12); color:var(--warning); }
+.badge .dot { width:7px; height:7px; border-radius:50%; background:currentColor; }
+.badge.success .dot { animation: pulse 1.6s infinite; }
+@keyframes pulse { 50% { opacity:.3; } }
+.btn {
+  padding:9px 18px; border-radius:10px; border:1px solid var(--border);
+  background:var(--surface-2); color:var(--text); font-weight:600; font-size:14px;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.btn.primary { background:var(--primary); border-color:var(--primary); color:#fff; }
+.btn.danger { background:var(--danger); border-color:var(--danger); color:#fff; }
+.btn:focus-visible, a:focus-visible { outline:2px solid var(--primary); outline-offset:2px; }
+.skeleton { border-radius:8px; background:linear-gradient(90deg,var(--border) 25%,var(--surface-2) 50%,var(--border) 75%); background-size:200% 100%; animation:sk 1.2s infinite; height:14px; }
+@keyframes sk { to { background-position:-200% 0; } }
+.toast-wrap { position:fixed; bottom:calc(var(--bottomnav-h) + 12px); right:16px; left:16px; z-index:100; display:flex; flex-direction:column; gap:8px; align-items:center; }
+.toast { background:var(--text); color:var(--background); padding:10px 18px; border-radius:10px; font-size:14px; animation:toastIn .3s; }
+@keyframes toastIn { from { opacity:0; transform:translateY(10px);} }
+@media (min-width:1024px) { .toast-wrap { bottom:16px; } }
+.section-title { font-size:16px; font-weight:700; margin:20px 0 10px; display:flex; align-items:center; justify-content:space-between; }
