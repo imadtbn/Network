@@ -1,0 +1,39 @@
+.device-card { display:flex; gap:12px; align-items:center; }
+.device-card .avatar {
+  width:46px; height:46px; border-radius:12px; background:var(--surface-2);
+  display:grid; place-items:center; font-size:24px; flex-shrink:0;
+  border:1px solid var(--border);
+}
+.device-card .info { flex:1; min-width:0; }
+.device-card .name { font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.device-card .meta { font-size:12px; color:var(--text-muted); }
+.device-card .speeds { font-size:12px; text-align:left; color:var(--text-muted); line-height:1.6; }
+.toolbar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+.toolbar input[type="search"] {
+  flex:1; min-width:180px; padding:9px 14px; border-radius:10px;
+  border:1px solid var(--border); background:var(--surface);
+  color:var(--text); font-family:inherit; font-size:14px;
+}
+.chip {
+  padding:7px 14px; border-radius:99px; border:1px solid var(--border);
+  background:var(--surface); color:var(--text-muted); font-size:13px; font-weight:600;
+}
+.chip.active { background:var(--primary); border-color:var(--primary); color:#fff; }
+.empty-state { text-align:center; padding:48px 16px; color:var(--text-muted); }
+.empty-state .icon { font-size:44px; margin-bottom:8px; }
+.list-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border); font-size:14px; }
+.list-row:last-child { border-bottom:none; }
+.list-row .k { color:var(--text-muted); }
+.list-row .v { font-weight:600; }
+.quality-bar { height:12px; border-radius:6px; background:var(--surface-2); border:1px solid var(--border); overflow:hidden; margin-top:6px; }
+.quality-bar > div { height:100%; border-radius:6px; transition:width .5s; background:var(--success); }
+dialog {
+  border:1px solid var(--border); border-radius:var(--radius); background:var(--surface);
+  color:var(--text); padding:20px; max-width:340px; width:90%;
+}
+dialog::backdrop { background:rgba(0,0,0,.5); }
+dialog input {
+  width:100%; padding:10px; border-radius:10px; border:1px solid var(--border);
+  background:var(--surface-2); color:var(--text); font-family:inherit; margin:12px 0;
+}
+.signal-strength { display:inline-block; width:8px; height:16px; border-radius:2px; margin-left:2px; background:var(--surface-2); position:relative; }
