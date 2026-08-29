@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الأجهزة المتصلة — NetMonitor DZ</title>
+<meta name="description" content="عرض جميع الأجهزة المتصلة بشبكتك المنزلية عبر Wi-Fi وEthernet.">
+<meta name="theme-color" content="#2563eb">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="css/variables.css"><link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/layout.css"><link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/devices.css">
+</head>
+<body>
+<div class="offline-bar">أنت تعمل الآن دون اتصال بالإنترنت</div>
+<header class="header">
+  <a class="logo" href="index.html">📡 NetMonitor DZ</a>
+  <span class="badge warning">وضع المحاكاة</span>
+  <div class="spacer"></div>
+  <button class="icon-btn" data-theme-toggle aria-label="تبديل المظهر">🌙</button>
+</header>
+<aside class="sidebar">
+  <a href="index.html">🏠 الرئيسية</a><a href="devices.html" class="active">📱 الأجهزة</a>
+  <a href="traffic.html">📈 الحركة</a><a href="usage.html">📊 الاستهلاك</a>
+  <a href="wifi.html">📶 Wi-Fi</a><a href="ethernet.html">🔌 Ethernet</a>
+  <a href="alerts.html">🔔 التنبيهات</a><a href="settings.html">⚙️ الإعدادات</a><a href="about.html">ℹ️ حول</a>
+</aside>
+<main class="container">
+  <h2 class="section-title">الأجهزة المتصلة</h2>
+  <div class="toolbar">
+    <input type="search" id="search" placeholder="🔍 ابحث بالاسم، IP، MAC..." aria-label="بحث">
+    <select id="sort" class="chip"><option value="name">الاسم</option><option value="usage">الاستهلاك</option><option value="ip">IP</option></select>
+  </div>
+  <div class="toolbar">
+    <button class="chip active" data-filter="all">الكل</button>
+    <button class="chip" data-filter="wifi">Wi-Fi</button>
+    <button class="chip" data-filter="ethernet">Ethernet</button>
+    <button class="chip" data-filter="online">متصل</button>
+    <button class="chip" data-filter="offline">غير متصل</button>
+  </div>
+  <div class="grid grid-2" id="devices-list">
+    <div class="card skeleton" style="height:90px"></div><div class="card skeleton" style="height:90px"></div>
+    <div class="card skeleton" style="height:90px"></div><div class="card skeleton" style="height:90px"></div>
+  </div>
+</main>
+<nav class="bottomnav">
+  <a href="index.html">🏠<span>الرئيسية</span></a><a href="devices.html" class="active">📱<span>الأجهزة</span></a>
+  <a href="traffic.html">📈<span>الحركة</span></a><a href="usage.html">📊<span>الاستهلاك</span></a>
+  <a href="about.html">⋯<span>المزيد</span></a>
+</nav>
+<dialog id="rename-dialog-none"></dialog>
+<dialog id="rename-dialog">
+  <h3 style="font-weight:700">تعديل اسم الجهاز</h3>
+  <input id="rename-input" maxlength="40" placeholder="مثال: هاتف عماد">
+  <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end">
+    <button class="btn" onclick="this.closest('dialog').close()">إلغاء</button>
+    <button class="btn primary" id="rename-save">حفظ</button>
+  </div>
+</dialog>
+<div class="toast-wrap"></div>
+<script src="js/utils.js"></script><script src="js/storage.js"></script>
+<script src="js/state.js"></script><script src="js/simulation.js"></script>
+<script src="js/theme.js"></script><script src="js/app.js"></script>
+<script src="js/devices.js"></script>
+</body>
+</html>
