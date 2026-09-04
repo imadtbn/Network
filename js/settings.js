@@ -11,6 +11,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Router Connection
+    const btnConnectRouter = document.getElementById('btn-connect-router');
+    if (btnConnectRouter) {
+        btnConnectRouter.addEventListener('click', async () => {
+            const ip = document.getElementById('router-ip').value;
+            const username = document.getElementById('router-username').value;
+            const password = document.getElementById('router-password').value;
+            const statusMsg = document.getElementById('router-status-message');
+
+            if (!ip || !username || !password) {
+                statusMsg.textContent = "يرجى تعبئة جميع الحقول.";
+                statusMsg.style.display = 'block';
+                statusMsg.style.backgroundColor = 'rgba(var(--danger-rgb), 0.1)';
+                statusMsg.style.color = 'var(--danger)';
+                return;
+            }
+
+            statusMsg.textContent = "جاري الاتصال بالراوتر...";
+            statusMsg.style.display = 'block';
+            statusMsg.style.backgroundColor = 'rgba(var(--primary-rgb), 0.1)';
+            statusMsg.style.color = 'var(--primary)';
+
+            btnConnectRouter.disabled = true;
+
+            const result = await window.apiProvider.connectToRouter(ip, username, password);
+
+            btnConnectRouter.disabled = false;
+
+            if (result && result.success) {
+                statusMsg.textContent = "تم الاتصال بالراوتر بنجاح! يتم الآن جلب البيانات الحقيقية.";
+                statusMsg.style.backgroundColor = 'rgba(var(--success-rgb), 0.1)';
+                statusMsg.style.color = 'var(--success)';
+
+                // Automatically turn off simulation mode
+                const simModeToggle = document.getElementById('setting-sim-mode');
+                if (simModeToggle && simModeToggle.checked) {
+                    simModeToggle.click();
+                }
+            } else {
+                statusMsg.textContent = result ? result.message : "فشل الاتصال. تأكد من صحة البيانات.";
+                statusMsg.style.backgroundColor = 'rgba(var(--danger-rgb), 0.1)';
+                statusMsg.style.color = 'var(--danger)';
+            }
+        });
+    }
+
     // Simulation Settings
     const simModeToggle = document.getElementById('setting-sim-mode');
     const intervalSelect = document.getElementById('setting-update-interval');

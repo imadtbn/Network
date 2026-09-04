@@ -28,6 +28,22 @@ class ApiProvider {
             return null;
         }
     }
+
+    async connectToRouter(ip, username, password) {
+        try {
+            const res = await fetch(`${this.baseUrl}/api/router/connect`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ip, username, password })
+            });
+            return await res.json();
+        } catch (error) {
+            console.error("Error connecting to router API:", error);
+            return { success: false, message: "فشل الاتصال بالخادم الداخلي" };
+        }
+    }
 }
 
 window.apiProvider = new ApiProvider();
