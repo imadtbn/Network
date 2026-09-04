@@ -1,7 +1,7 @@
 class ApiProvider {
     constructor() {
         // Use the current hostname so it works across different devices on the local network
-        const hostname = window.location.hostname || '127.0.0.1';
+        const hostname = window.location.hostname || '192.168.1.1';
         this.baseUrl = `http://${hostname}:5000`;
     }
 
