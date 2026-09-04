@@ -28,6 +28,39 @@ document.addEventListener('DOMContentLoaded', () => {
     if (appState.get('network')) updateNetworkUI(appState.get('network'));
     if (appState.get('devices')) updateDevicesUI(appState.get('devices'));
 
+    // Client Connection Information (4G/5G/Wi-Fi)
+    function updateClientConnection() {
+        const typeEl = document.getElementById('client-conn-type');
+        const downlinkEl = document.getElementById('client-conn-downlink');
+        const rttEl = document.getElementById('client-conn-rtt');
+
+        if (navigator.connection) {
+            const conn = navigator.connection;
+
+            // conn.effectiveType is usually '4g', '3g', '2g', 'slow-2g'
+            // To make it look cooler if it's high speed, we can say 5G based on downlink
+            let typeText = conn.effectiveType ? conn.effectiveType.toUpperCase() : 'Unknown';
+            if (typeText === '4G' && conn.downlink > 50) {
+                typeText = '5G (Est.)';
+            }
+            if (conn.type === 'wifi') {
+                typeText = 'Wi-Fi';
+            }
+
+            if (typeEl) typeEl.textContent = typeText;
+            if (downlinkEl) downlinkEl.textContent = conn.downlink || '-';
+            if (rttEl) rttEl.textContent = conn.rtt || '-';
+        } else {
+            if (typeEl) typeEl.textContent = 'غير مدعوم';
+        }
+    }
+
+    if (navigator.connection) {
+        navigator.connection.addEventListener('change', updateClientConnection);
+    }
+    updateClientConnection();
+
+
 
     function updateNetworkUI(net) {
         // Status Card
