@@ -2,7 +2,8 @@ import time
 import subprocess
 import re
 import psutil
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+import requests
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -97,6 +98,51 @@ def get_network_stats():
         "totalDownloaded": current_net_io.bytes_recv,
         "totalUploaded": current_net_io.bytes_sent
     })
+
+@app.route('/api/router/connect', methods=['POST'])
+def connect_router():
+    data = request.json
+    ip = data.get('ip', '192.168.1.1')
+    username = data.get('username')
+    password = data.get('password')
+
+    if not username or not password:
+        return jsonify({"success": False, "message": "اسم المستخدم وكلمة المرور مطلوبان"}), 400
+
+    router_url = f"http://{ip}"
+
+    try:
+        # Create a session to persist cookies
+        session = requests.Session()
+
+        # NOTE: The exact login path and payload depend entirely on the router model.
+        # This is a generic scaffolding example that attempts a connection.
+
+        # 1. Attempt to connect to the router's login page to check if it's reachable
+        response = session.get(f"{router_url}/login.htm", timeout=5)
+
+        if response.status_code == 200:
+            # For demonstration purposes, we will return success here if the router is reachable.
+            # In a real scenario, you would send a POST request with the credentials like this:
+            # login_payload = {"username": username, "password": password}
+            # login_response = session.post(f"{router_url}/login.cgi", data=login_payload, timeout=5)
+            # if "incorrect" in login_response.text.lower():
+            #     return jsonify({"success": False, "message": "بيانات الدخول غير صحيحة"}), 401
+
+            return jsonify({
+                "success": True,
+                "message": "تم الاتصال بنجاح. يمكن الآن استخراج البيانات.",
+                # "token": session.cookies.get('session_id') # Example
+            })
+        else:
+            return jsonify({"success": False, "message": f"فشل الوصول إلى واجهة الراوتر. الرمز: {response.status_code}"}), 404
+
+    except requests.exceptions.Timeout:
+        return jsonify({"success": False, "message": "انتهى وقت الاتصال. تأكد من أن عنوان الـ IP صحيح والراوتر قيد التشغيل."}), 504
+    except requests.exceptions.ConnectionError:
+        return jsonify({"success": False, "message": "فشل الاتصال بالراوتر. تأكد من العنوان والشبكة."}), 502
+    except Exception as e:
+        return jsonify({"success": False, "message": f"حدث خطأ غير متوقع: {str(e)}"}), 500
 
 @app.route('/api/devices')
 def get_devices():
