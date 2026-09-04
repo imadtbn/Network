@@ -1,16 +1,100 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
-* { margin:0; padding:0; box-sizing:border-box; }
-html { direction: rtl; }
-body {
-  font-family: 'Cairo', sans-serif;
-  background: var(--background);
-  color: var(--text);
-  font-variant-numeric: tabular-nums;
-  min-height: 100vh;
-  padding-bottom: calc(var(--bottomnav-h) + 12px);
-  transition: background .3s, color .3s;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-@media (min-width: 1024px) { body { padding-bottom: 0; padding-right: 240px; } }
-a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; }
-@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+html, body {
+    height: 100%;
+    font-family: var(--font-family);
+    background-color: var(--background);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* Base elements */
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--primary-hover);
+}
+
+ul, ol {
+    list-style: none;
+}
+
+button {
+    font-family: var(--font-family);
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Typography Helpers */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+p {
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-tertiary);
+}
+
+/* Latin numbers in Arabic context */
+.latin-num {
+    font-family: system-ui, -apple-system, sans-serif;
+    direction: ltr;
+    display: inline-block;
+}
+
+/* Offline Banner */
+.offline-banner {
+    background-color: var(--danger);
+    color: white;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: calc(var(--z-header) + 1);
+}
+
+.offline-banner.hidden {
+    display: none;
+}

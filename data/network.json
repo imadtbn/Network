@@ -1,0 +1,13 @@
+{
+    "status": "online",
+    "ssid": "Home_Network_5G",
+    "type": "Wi-Fi",
+    "localIp": "192.168.1.100",
+    "gateway": "192.168.1.1",
+    "uptime": 432000,
+    "downloadSpeed": 42.8,
+    "uploadSpeed": 8.4,
+    "ping": 24,
+    "totalDownloaded": 48318382080,
+    "totalUploaded": 12884901888
+}

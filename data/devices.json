@@ -1,0 +1,62 @@
+[
+  {
+    "id": "device-001",
+    "name": "هاتف Samsung",
+    "type": "smartphone",
+    "manufacturer": "Samsung",
+    "ip": "192.168.1.12",
+    "mac": "AA:BB:CC:DD:EE:01",
+    "connection": "wifi",
+    "signal": -48,
+    "download": 8.4,
+    "upload": 1.2,
+    "totalConsumed": 2516582400,
+    "firstSeen": "2023-01-15T10:00:00Z",
+    "status": "online"
+  },
+  {
+    "id": "device-002",
+    "name": "حاسوب مكتبي",
+    "type": "desktop",
+    "manufacturer": "Dell",
+    "ip": "192.168.1.20",
+    "mac": "11:22:33:44:55:66",
+    "connection": "ethernet",
+    "signal": null,
+    "download": 24.6,
+    "upload": 4.1,
+    "totalConsumed": 15032385536,
+    "firstSeen": "2023-02-10T08:30:00Z",
+    "status": "online"
+  },
+  {
+    "id": "device-003",
+    "name": "Smart TV",
+    "type": "smart_tv",
+    "manufacturer": "LG",
+    "ip": "192.168.1.15",
+    "mac": "FF:EE:DD:CC:BB:AA",
+    "connection": "wifi",
+    "signal": -60,
+    "download": 15.2,
+    "upload": 0.5,
+    "totalConsumed": 8589934592,
+    "firstSeen": "2023-03-05T18:45:00Z",
+    "status": "online"
+  },
+  {
+    "id": "device-004",
+    "name": "iPad Pro",
+    "type": "tablet",
+    "manufacturer": "Apple",
+    "ip": "192.168.1.18",
+    "mac": "00:11:22:33:44:55",
+    "connection": "wifi",
+    "signal": -55,
+    "download": 0,
+    "upload": 0,
+    "totalConsumed": 1073741824,
+    "firstSeen": "2023-04-12T09:15:00Z",
+    "status": "offline"
+  }
+]

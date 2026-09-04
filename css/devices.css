@@ -1,39 +1,215 @@
-.device-card { display:flex; gap:12px; align-items:center; }
-.device-card .avatar {
-  width:46px; height:46px; border-radius:12px; background:var(--surface-2);
-  display:grid; place-items:center; font-size:24px; flex-shrink:0;
-  border:1px solid var(--border);
+/* Devices Page */
+.devices-header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    background-color: var(--surface);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
 }
-.device-card .info { flex:1; min-width:0; }
-.device-card .name { font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.device-card .meta { font-size:12px; color:var(--text-muted); }
-.device-card .speeds { font-size:12px; text-align:left; color:var(--text-muted); line-height:1.6; }
-.toolbar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
-.toolbar input[type="search"] {
-  flex:1; min-width:180px; padding:9px 14px; border-radius:10px;
-  border:1px solid var(--border); background:var(--surface);
-  color:var(--text); font-family:inherit; font-size:14px;
+
+.search-bar {
+    flex: 1;
+    min-width: 250px;
+    position: relative;
 }
-.chip {
-  padding:7px 14px; border-radius:99px; border:1px solid var(--border);
-  background:var(--surface); color:var(--text-muted); font-size:13px; font-weight:600;
+
+.search-bar i {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
 }
-.chip.active { background:var(--primary); border-color:var(--primary); color:#fff; }
-.empty-state { text-align:center; padding:48px 16px; color:var(--text-muted); }
-.empty-state .icon { font-size:44px; margin-bottom:8px; }
-.list-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border); font-size:14px; }
-.list-row:last-child { border-bottom:none; }
-.list-row .k { color:var(--text-muted); }
-.list-row .v { font-weight:600; }
-.quality-bar { height:12px; border-radius:6px; background:var(--surface-2); border:1px solid var(--border); overflow:hidden; margin-top:6px; }
-.quality-bar > div { height:100%; border-radius:6px; transition:width .5s; background:var(--success); }
-dialog {
-  border:1px solid var(--border); border-radius:var(--radius); background:var(--surface);
-  color:var(--text); padding:20px; max-width:340px; width:90%;
+
+.search-bar input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    transition: border-color var(--transition-fast);
 }
-dialog::backdrop { background:rgba(0,0,0,.5); }
-dialog input {
-  width:100%; padding:10px; border-radius:10px; border:1px solid var(--border);
-  background:var(--surface-2); color:var(--text); font-family:inherit; margin:12px 0;
+
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--primary);
 }
-.signal-strength { display:inline-block; width:8px; height:16px; border-radius:2px; margin-left:2px; background:var(--surface-2); position:relative; }
+
+.filter-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.filter-select {
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    cursor: pointer;
+}
+
+/* Device List Grid */
+.devices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.device-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.device-card:hover {
+    border-color: var(--primary-light);
+}
+
+.device-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.device-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.device-info {
+    flex: 1;
+    overflow: hidden;
+}
+
+.device-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.25rem;
+}
+
+.device-ip {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.device-status {
+    position: absolute;
+    top: 1rem;
+    left: 1rem; /* RTL -> left is opposite of start */
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-dot.online { background-color: var(--success); }
+.status-dot.offline { background-color: var(--text-tertiary); }
+
+.device-stats {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--background);
+    padding: 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+}
+
+.d-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.d-stat i.fa-arrow-down { color: var(--success); }
+.d-stat i.fa-arrow-up { color: var(--warning); }
+.d-stat i.fa-wifi { color: var(--primary); }
+.d-stat i.fa-network-wired { color: var(--info); }
+
+/* Details Page */
+.details-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.back-btn {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    padding: 0.5rem;
+}
+
+.back-btn:hover {
+    color: var(--primary);
+}
+
+.device-specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.spec-item {
+    background-color: var(--background);
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.spec-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.spec-value {
+    font-weight: 700;
+}
+
+.device-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.edit-name-btn {
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.edit-name-input {
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-family);
+    display: none;
+}
