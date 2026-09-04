@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <i class="fa-solid ${icon}"></i>
                         </div>
                         <div class="device-info">
-                            <h3 class="device-name" title="${device.name}">${device.name}</h3>
+                            <h3 class="device-name" title="${utils.escapeHtml(device.name)}">${utils.escapeHtml(device.name)}</h3>
                             <div class="device-ip latin-num">${device.ip}</div>
                         </div>
                     </div>

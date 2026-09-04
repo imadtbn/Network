@@ -1,6 +1,8 @@
 class ApiProvider {
-    constructor(baseUrl = 'http://127.0.0.1:5000') {
-        this.baseUrl = baseUrl;
+    constructor() {
+        // Use the current hostname so it works across different devices on the local network
+        const hostname = window.location.hostname || '127.0.0.1';
+        this.baseUrl = `http://${hostname}:5000`;
     }
 
     async fetchNetworkStats() {
