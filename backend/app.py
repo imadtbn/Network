@@ -21,16 +21,19 @@ def get_devices_from_arp():
         result = subprocess.run(['arp', '-a'], capture_output=True, text=True, timeout=5)
         lines = result.stdout.splitlines()
 
-        # Regex to parse 'arp -a' output: e.g. "? (192.168.1.1) at 00:11:22:33:44:55 [ether] on eth0"
-        # Or standard windows/linux variations. We look for IP and MAC.
-        ip_mac_pattern = re.compile(r'\((?P<ip>[0-9\.]+)\)\s+at\s+(?P<mac>[0-9a-fA-F:]+)')
+        # Regex to parse 'arp -a' output:
+        # Linux/Mac: "? (192.168.1.1) at 00:11:22:33:44:55 [ether] on eth0"
+        # Windows: "  192.168.1.1           00-11-22-33-44-55     dynamic"
+        linux_pattern = re.compile(r'\((?P<ip>[0-9\.]+)\)\s+at\s+(?P<mac>[0-9a-fA-F:]+)')
+        win_pattern = re.compile(r'(?P<ip>[0-9\.]+)\s+(?P<mac>[0-9a-fA-F\-]+)\s+(?:dynamic|static)')
 
         device_id_counter = 1
         for line in lines:
-            match = ip_mac_pattern.search(line)
+            match = linux_pattern.search(line) or win_pattern.search(line)
             if match:
                 ip = match.group('ip')
-                mac = match.group('mac')
+                # normalize MAC format to standard colon separation
+                mac = match.group('mac').replace('-', ':').lower()
 
                 # Ignore incomplete ARP entries
                 if "incomplete" in mac.lower():
