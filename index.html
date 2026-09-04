@@ -115,6 +115,20 @@
                         </div>
                     </div>
 
+                    <!-- Client Connection (4G/5G/Wi-Fi Detection) -->
+                    <div class="card" style="margin-bottom: 1.5rem; border-right: 4px solid var(--info);" id="client-connection-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <h3 style="margin-bottom:0.25rem;"><i class="fa-solid fa-mobile-signal"></i> اتصال جهازك الحالي (المتصفح)</h3>
+                                <p style="font-size:0.9rem; color:var(--text-secondary);">يتم الكشف عن نوع اتصال الهاتف أو الحاسوب الذي تتصفح منه الآن.</p>
+                            </div>
+                            <div style="text-align: left;">
+                                <div style="font-size: 1.5rem; font-weight: bold; color: var(--info);" id="client-conn-type" class="latin-num">جاري الفحص...</div>
+                                <div style="font-size: 0.9rem; color: var(--text-secondary);" class="latin-num"><span id="client-conn-downlink">-</span> Mbps • <span id="client-conn-rtt">-</span> ms</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Quick Stats -->
                     <div class="stats-grid">
                         <div class="card stat-card">
@@ -202,6 +216,7 @@
     <script src="js/storage.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/state.js"></script>
+    <script src="js/apiProvider.js"></script>
     <script src="js/simulation.js"></script>
     <script src="js/app.js"></script>
     <script src="js/charts.js"></script>

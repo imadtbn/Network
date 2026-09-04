@@ -43,8 +43,6 @@ class SimulationEngine {
         if (this.isRunning) return;
 
         const settings = appState.get('settings');
-        if (!settings.simulationMode) return;
-
         this.isRunning = true;
         this.intervalId = setInterval(() => this.tick(), settings.updateInterval);
     }
@@ -55,9 +53,49 @@ class SimulationEngine {
         this.isRunning = false;
     }
 
-    tick() {
-        this.simulateNetworkTraffic();
-        this.simulateDevicesActivity();
+    async tick() {
+        const settings = appState.get('settings');
+        if (settings.simulationMode) {
+            this.simulateNetworkTraffic();
+            this.simulateDevicesActivity();
+        } else {
+            await this.fetchRealData();
+        }
+    }
+
+    async fetchRealData() {
+        if (!window.apiProvider) return;
+
+        // Fetch Network
+        const netStats = await window.apiProvider.fetchNetworkStats();
+        if (netStats) {
+            appState.update('network', netStats);
+
+            // Update history for chart
+            const history = appState.get('history');
+            const now = new Date().getTime();
+            history.traffic.push({ time: now, download: netStats.downloadSpeed, upload: netStats.uploadSpeed });
+
+            if (history.traffic.length > 60) {
+                history.traffic.shift();
+            }
+            appState.replace('history', history);
+        }
+
+        // Fetch Devices
+        const realDevices = await window.apiProvider.fetchDevices();
+        if (realDevices) {
+            // Merge with local device names if customized
+            let currentDevices = appState.get('devices');
+
+            realDevices.forEach(rDev => {
+                const existing = currentDevices.find(d => d.mac === rDev.mac);
+                if (existing) {
+                    rDev.name = existing.name; // Keep user customized name
+                }
+            });
+            appState.replace('devices', realDevices);
+        }
     }
 
     simulateNetworkTraffic() {
