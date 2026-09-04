@@ -1,16 +1,37 @@
-const Theme = {
-  init() {
-    this.apply(State.theme);
-    document.querySelectorAll('[data-theme-toggle]')?.forEach(b =>
-      b.addEventListener('click', () => {
-        State.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-        Storage.set('theme', State.theme);
-        this.apply(State.theme);
-      }));
-  },
-  apply(mode) {
-    const dark = mode === 'dark' ||
-      (mode === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
-    document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-  }
-};
+document.addEventListener('DOMContentLoaded', () => {
+    const themeToggleBtn = document.getElementById('theme-toggle');
+
+    // Check saved theme or system preference
+    const savedTheme = storage.get('theme');
+    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+
+    setTheme(initialTheme);
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+    }
+
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        storage.set('theme', theme);
+
+        // Update icon
+        if (themeToggleBtn) {
+            const icon = themeToggleBtn.querySelector('i');
+            if (theme === 'dark') {
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                icon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        // Dispatch custom event for charts to re-render colors if needed
+        window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme } }));
+    }
+});

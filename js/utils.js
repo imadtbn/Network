@@ -1,20 +1,48 @@
-const Utils = {
-  fmt: (n, d = 1) => n.toFixed(d).replace(/\.0$/, ''),
-  fmtBytes: (mb) => {
-    if (mb >= 1024 * 1024) return (mb / 1048576).toFixed(2) + ' TB';
-    if (mb >= 1024) return (mb / 1024).toFixed(2) + ' GB';
-    return mb.toFixed(1) + ' MB';
-  },
-  clamp: (v, min, max) => Math.min(max, Math.max(min, v)),
-  smooth: (current, target, factor = 0.25) => current + (target - current) * factor,
-  timeAgo: (ts) => {
-    const s = Math.floor((Date.now() - ts) / 1000);
-    if (s < 60) return 'الآن';
-    if (s < 3600) return `قبل ${Math.floor(s / 60)} دقيقة`;
-    if (s < 86400) return `قبل ${Math.floor(s / 3600)} ساعة`;
-    return `قبل ${Math.floor(s / 86400)} يوم`;
-  },
-  uid: () => 'device-' + Math.random().toString(36).slice(2, 8),
-  $: (sel) => document.querySelector(sel),
-  esc: (s) => s.replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]))
+const utils = {
+    formatBytes: (bytes, decimals = 2) => {
+        if (!+bytes) return '0 Bytes';
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+    },
+
+    formatSpeed: (mbps) => {
+        return `${mbps.toFixed(1)} Mbps`;
+    },
+
+    getDeviceIcon: (type) => {
+        const icons = {
+            'smartphone': 'fa-mobile-screen',
+            'tablet': 'fa-tablet-screen-button',
+            'laptop': 'fa-laptop',
+            'desktop': 'fa-desktop',
+            'smart_tv': 'fa-tv',
+            'printer': 'fa-print',
+            'camera': 'fa-camera',
+            'iot': 'fa-lightbulb',
+            'router': 'fa-router',
+            'unknown': 'fa-circle-question'
+        };
+        return icons[type] || icons['unknown'];
+    },
+
+    generateId: () => {
+        return Math.random().toString(36).substr(2, 9);
+    },
+
+    debounce: (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
 };
+
+window.utils = utils;

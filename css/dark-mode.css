@@ -1,0 +1,33 @@
+html[data-theme="dark"] {
+    --primary: #8ab4f8;
+    --primary-hover: #aecbfa;
+    --primary-light: rgba(138, 180, 248, 0.15);
+
+    --background: #202124;
+    --surface: #2d2e31;
+    --surface-hover: #3c4043;
+
+    --text-primary: #e8eaed;
+    --text-secondary: #9aa0a6;
+    --text-tertiary: #80868b;
+
+    --border: #3c4043;
+    --border-light: #444746;
+
+    --success: #81c995;
+    --success-light: rgba(129, 201, 149, 0.15);
+    --warning: #fde293;
+    --warning-light: rgba(253, 226, 147, 0.15);
+    --danger: #f28b82;
+    --danger-light: rgba(242, 139, 130, 0.15);
+    --info: #8ab4f8;
+    --info-light: rgba(138, 180, 248, 0.15);
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Specific Dark Mode overrides for inputs/charts if needed */
+html[data-theme="dark"] .card {
+    border-color: var(--border);
+}

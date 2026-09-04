@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>الرئيسية | NetMonitor DZ</title>
+    <title>تفاصيل الجهاز | NetMonitor DZ</title>
 
     <!-- Meta Tags for SEO -->
     <meta name="description" content="مراقب الشبكة المنزلية - راقب شبكتك، اعرف أجهزتك، وافهم استهلاك الإنترنت.">
@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="css/dark-mode.css">
 
     <!-- Page specific CSS -->
-    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/devices.css">
 </head>
 <body>
     <div id="offline-banner" class="offline-banner hidden">
@@ -46,7 +46,7 @@
             <h2>NetMonitor DZ</h2>
         </div>
         <nav class="sidebar-nav">
-            <a href="index.html" class="nav-item active"><i class="fa-solid fa-house"></i> الرئيسية</a>
+            <a href="index.html" class="nav-item "><i class="fa-solid fa-house"></i> الرئيسية</a>
             <a href="devices.html" class="nav-item "><i class="fa-solid fa-laptop-router"></i> الأجهزة المتصلة</a>
             <a href="traffic.html" class="nav-item "><i class="fa-solid fa-chart-line"></i> تحليل الحركة</a>
             <a href="usage.html" class="nav-item "><i class="fa-solid fa-chart-pie"></i> استهلاك الإنترنت</a>
@@ -66,7 +66,7 @@
         <header class="top-header">
             <div class="header-title">
                 <button class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></button>
-                <h1>الرئيسية</h1>
+                <h1>تفاصيل الجهاز</h1>
             </div>
             <div class="header-actions">
                 <div id="offline-badge" class="offline-badge hidden">
@@ -82,94 +82,85 @@
 
             <!-- Page Content -->
             <div class="page-container" id="page-content">
-                <div class="dashboard-grid">
 
-                    <!-- Network Status Card -->
-                    <div class="card network-status-card">
-                        <div class="network-status-header">
-                            <div class="status-indicator">
-                                <div class="pulse-dot"></div>
-                                <span id="net-status-text">متصلة</span>
+                <div class="details-header">
+                    <a href="devices.html" class="back-btn" aria-label="عودة"><i class="fa-solid fa-arrow-right"></i></a>
+                    <h2 id="dd-title">جاري التحميل...</h2>
+                </div>
+
+                <div id="device-not-found" class="card hidden">
+                    <p style="text-align:center;">الجهاز غير موجود.</p>
+                </div>
+
+                <div id="device-content" class="hidden">
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <div class="device-header" style="margin-bottom: 1.5rem;">
+                            <div class="device-icon" id="dd-icon" style="width: 64px; height: 64px; font-size: 2rem;">
+                                <i class="fa-solid fa-mobile-screen"></i>
                             </div>
-                            <div class="network-name">
-                                <i class="fa-solid fa-wifi"></i> <span id="net-ssid" class="latin-num">Home_Network_5G</span>
+                            <div class="device-info">
+                                <div style="display:flex; align-items:center; gap:1rem;">
+                                    <h3 class="device-name" id="dd-name" style="font-size: 1.5rem;">هاتف Samsung</h3>
+                                    <i class="fa-solid fa-pen edit-name-btn" id="dd-edit-btn" title="تعديل الاسم"></i>
+                                </div>
+                                <input type="text" id="dd-name-input" class="edit-name-input">
+                                <div class="device-ip latin-num" id="dd-ip" style="font-size: 1rem; margin-top: 0.5rem;">192.168.1.12</div>
+                            </div>
+                            <div>
+                                <span class="badge badge-success" id="dd-status-badge">متصل</span>
                             </div>
                         </div>
-                        <div class="network-details">
-                            <div class="detail-item">
-                                <span class="detail-label">نوع الاتصال</span>
-                                <span class="detail-value" id="net-type">Wi-Fi</span>
+
+                        <div class="device-specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">MAC Address</span>
+                                <span class="spec-value latin-num" id="dd-mac">AA:BB:CC:DD:EE:01</span>
                             </div>
-                            <div class="detail-item">
-                                <span class="detail-label">IP المحلي</span>
-                                <span class="detail-value latin-num" id="net-ip">192.168.1.100</span>
+                            <div class="spec-item">
+                                <span class="spec-label">الشركة المصنعة</span>
+                                <span class="spec-value" id="dd-vendor">Samsung</span>
                             </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Gateway</span>
-                                <span class="detail-value latin-num" id="net-gateway">192.168.1.1</span>
+                            <div class="spec-item">
+                                <span class="spec-label">نوع الاتصال</span>
+                                <span class="spec-value" id="dd-conn">Wi-Fi</span>
                             </div>
-                            <div class="detail-item">
-                                <span class="detail-label">وقت التشغيل</span>
-                                <span class="detail-value" id="net-uptime">5 أيام</span>
+                            <div class="spec-item">
+                                <span class="spec-label">قوة الإشارة</span>
+                                <span class="spec-value latin-num" id="dd-signal">-48 dBm</span>
                             </div>
+                            <div class="spec-item">
+                                <span class="spec-label">إجمالي الاستهلاك</span>
+                                <span class="spec-value latin-num" id="dd-total">2.4 GB</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">أول ظهور</span>
+                                <span class="spec-value latin-num" id="dd-first-seen" dir="ltr">2023-01-15 10:00</span>
+                            </div>
+                        </div>
+
+                        <div class="device-actions">
+                            <button id="btn-block" class="btn btn-outline" style="color: var(--danger); border-color: var(--danger);"><i class="fa-solid fa-ban"></i> حظر الجهاز</button>
+                            <button id="btn-allow" class="btn btn-outline hidden" style="color: var(--success); border-color: var(--success);"><i class="fa-solid fa-circle-check"></i> السماح للجهاز</button>
                         </div>
                     </div>
 
-                    <!-- Quick Stats -->
-                    <div class="stats-grid">
-                        <div class="card stat-card">
-                            <i class="fa-solid fa-server stat-icon"></i>
-                            <span class="stat-value latin-num" id="stat-total-devices">0</span>
-                            <span class="stat-label">الأجهزة المتصلة</span>
-                        </div>
-                        <div class="card stat-card">
-                            <i class="fa-solid fa-wifi stat-icon"></i>
-                            <span class="stat-value latin-num" id="stat-wifi-devices">0</span>
-                            <span class="stat-label">أجهزة Wi-Fi</span>
-                        </div>
-                        <div class="card stat-card">
-                            <i class="fa-solid fa-network-wired stat-icon"></i>
-                            <span class="stat-value latin-num" id="stat-eth-devices">0</span>
-                            <span class="stat-label">أجهزة Ethernet</span>
-                        </div>
-                        <div class="card stat-card download">
-                            <i class="fa-solid fa-arrow-down stat-icon"></i>
-                            <span class="stat-value latin-num" id="stat-download">0 Mbps</span>
-                            <span class="stat-label">سرعة التحميل</span>
-                        </div>
-                        <div class="card stat-card upload">
-                            <i class="fa-solid fa-arrow-up stat-icon"></i>
-                            <span class="stat-value latin-num" id="stat-upload">0 Mbps</span>
-                            <span class="stat-label">سرعة الرفع</span>
-                        </div>
-                        <div class="card stat-card ping">
-                            <i class="fa-solid fa-stopwatch stat-icon"></i>
-                            <span class="stat-value latin-num" id="stat-ping">0 ms</span>
-                            <span class="stat-label">Ping</span>
-                        </div>
-                    </div>
-
-                    <!-- Live Traffic Chart -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><i class="fa-solid fa-chart-area"></i> حركة الشبكة الحية</h3>
-                            <div class="chart-actions">
-                                <button id="pause-chart-btn" class="btn btn-outline btn-sm"><i class="fa-solid fa-pause"></i></button>
-                            </div>
+                            <h3 class="card-title"><i class="fa-solid fa-chart-line"></i> استهلاك الجهاز الحالي</h3>
                         </div>
                         <div class="chart-container">
-                            <canvas id="liveTrafficChart"></canvas>
+                            <canvas id="deviceTrafficChart"></canvas>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </main>
 
         <!-- Bottom Nav for Mobile -->
 
     <nav class="bottom-nav">
-        <a href="index.html" class="bottom-nav-item active">
+        <a href="index.html" class="bottom-nav-item ">
             <i class="fa-solid fa-house"></i>
             <span>الرئيسية</span>
         </a>
@@ -207,6 +198,6 @@
     <script src="js/charts.js"></script>
 
     <!-- Page specific JS -->
-    <script src="js/index.js"></script>
+    <script src="js/device-details.js"></script>
 </body>
 </html>
